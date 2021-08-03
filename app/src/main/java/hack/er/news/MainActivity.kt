@@ -25,15 +25,18 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         val errorExists = viewModel.getArticles()
-        if (!errorExists) {
-            viewModel.apiResponse.observe(this) { response ->
+
+        errorExists.observe(this) { error ->
+            if (error == true) {
                 loadingIndicator.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
-                recyclerView.adapter = ArticleAdapter(response)
+                errorView.visibility = View.VISIBLE
+            } else {
+                viewModel.apiResponse.observe(this) { response ->
+                    loadingIndicator.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                    recyclerView.adapter = ArticleAdapter(response)
+                }
             }
-        } else {
-            loadingIndicator.visibility = View.GONE
-            errorView.visibility = View.VISIBLE
         }
     }
 }

@@ -1,5 +1,6 @@
 package hack.er.news
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,16 +11,17 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val repository: Repository) : ViewModel() {
     val apiResponse: MutableLiveData<List<Article>> = MutableLiveData()
 
-    fun getArticles(): Boolean {
-        var isLoaded = false
+    fun getArticles(): LiveData<Boolean> {
+        val hasError = MutableLiveData<Boolean>()
         viewModelScope.launch {
             try {
                 val response = repository.getArticles()
                 apiResponse.value = response
+                hasError.value = false
             } catch (e: Exception) {
-                isLoaded = true
+                hasError.value = true
             }
         }
-        return isLoaded
+        return hasError
     }
 }
