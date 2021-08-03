@@ -6,15 +6,20 @@ import androidx.lifecycle.viewModelScope
 import hack.er.news.models.Article
 import hack.er.news.repository.Repository
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
-    val apiResponse: MutableLiveData<Response<List<Article>>> = MutableLiveData()
+    val apiResponse: MutableLiveData<List<Article>> = MutableLiveData()
 
-    fun getArticles() {
+    fun getArticles(): Boolean {
+        var isLoaded = false
         viewModelScope.launch {
-            val response = repository.getArticles()
-            apiResponse.value = response
+            try {
+                val response = repository.getArticles()
+                apiResponse.value = response
+            } catch (e: Exception) {
+                isLoaded = true
+            }
         }
+        return isLoaded
     }
 }

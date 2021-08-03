@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HackerNews</string>
+    <string name="error_message">Failed to fetch data.</string>
 </resources>

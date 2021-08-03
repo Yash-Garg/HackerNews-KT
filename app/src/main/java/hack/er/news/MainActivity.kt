@@ -1,7 +1,7 @@
 package hack.er.news
 
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import hack.er.news.adapter.ArticleAdapter
@@ -20,16 +20,20 @@ class MainActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         val recyclerView = binding.recyclerView
-        recyclerView.adapter = ArticleAdapter(listOf())
+        val loadingIndicator = binding.loadingIndicator
+        val errorView = binding.errorView.root
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getArticles()
-        viewModel.apiResponse.observe(this) { response ->
-            if (response.isSuccessful) {
-                recyclerView.adapter = response.body()?.let { ArticleAdapter(it) }
-            } else {
-                Toast.makeText(this, "Error fetching data..", Toast.LENGTH_SHORT).show()
+        val errorExists = viewModel.getArticles()
+        if (!errorExists) {
+            viewModel.apiResponse.observe(this) { response ->
+                loadingIndicator.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                recyclerView.adapter = ArticleAdapter(response)
             }
+        } else {
+            loadingIndicator.visibility = View.GONE
+            errorView.visibility = View.VISIBLE
         }
     }
 }
