@@ -24,18 +24,16 @@ class MainActivity : AppCompatActivity() {
         val errorView = binding.errorView.root
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        val errorExists = viewModel.getArticles()
+        viewModel.getArticles()
 
-        errorExists.observe(this) { error ->
-            if (error == true) {
+        viewModel.apiResponse.observe(this) { response ->
+            if (response?.isSuccessful == true) {
+                loadingIndicator.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                recyclerView.adapter = response.body()?.let { ArticleAdapter(it) }
+            } else {
                 loadingIndicator.visibility = View.GONE
                 errorView.visibility = View.VISIBLE
-            } else {
-                viewModel.apiResponse.observe(this) { response ->
-                    loadingIndicator.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
-                    recyclerView.adapter = ArticleAdapter(response)
-                }
             }
         }
     }
