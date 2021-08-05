@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hack.er.news.R
 import hack.er.news.models.Article
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ArticleAdapter(private val articles: List<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
@@ -16,6 +18,7 @@ class ArticleAdapter(private val articles: List<Article>) :
     class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleView: TextView = view.findViewById(R.id.item_title)
         val userName: TextView = view.findViewById(R.id.user_name)
+        val timeAgo: TextView = view.findViewById(R.id.time_ago)
     }
 
     override fun onCreateViewHolder(
@@ -30,7 +33,13 @@ class ArticleAdapter(private val articles: List<Article>) :
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val item = articles[position]
         holder.titleView.text = item.title
-        holder.userName.text = item.user
+        holder.userName.text = item.user ?: "Unknown"
+
+        ("Posted on " + SimpleDateFormat(
+            "dd MMMM yyyy - hh:mm a",
+            Locale.ENGLISH
+        ).format(item.time * 1000L)).also { holder.timeAgo.text = it }
+
         holder.itemView.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
             holder.itemView.context.startActivity(intent)

@@ -6,6 +6,6 @@ import retrofit2.Response
 
 class Repository {
     suspend fun getArticles(): Response<List<Article>> {
-        return RetrofitInstance.api.getArticles()
+        return RetrofitInstance.api.getArticles(1)
     }
 }
