@@ -42,6 +42,7 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Dependencies.kotlin_version}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${Dependencies.kotlin_version}")
     implementation("androidx.core:core-ktx:${Dependencies.core_ktx_version}")
     implementation("androidx.appcompat:appcompat:${Dependencies.appcompat_version}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
@@ -50,9 +51,9 @@ dependencies {
     implementation("com.google.android.material:material:${Dependencies.material_version}")
     implementation("androidx.constraintlayout:constraintlayout:${Dependencies.constraint_layout_version}")
 
-    // Networking
-    implementation("com.squareup.retrofit2:retrofit:${Dependencies.retrofit_version}")
-    implementation("com.squareup.retrofit2:converter-gson:${Dependencies.retrofit_version}")
+    // Retrofit with Moshi
+    implementation("com.squareup.moshi:moshi-kotlin:${Dependencies.moshi_version}")
+    implementation("com.squareup.retrofit2:converter-moshi:${Dependencies.retrofit_version}")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Dependencies.lifecycle_version}")

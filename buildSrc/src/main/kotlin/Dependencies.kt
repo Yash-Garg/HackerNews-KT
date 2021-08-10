@@ -7,4 +7,5 @@ object Dependencies {
     const val nav_version = "2.4.0-alpha05"
     const val retrofit_version = "2.9.0"
     const val lifecycle_version = "2.3.1"
+    const val moshi_version = "1.12.0"
 }
