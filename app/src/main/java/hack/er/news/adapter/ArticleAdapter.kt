@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hack.er.news.R
@@ -19,6 +20,7 @@ class ArticleAdapter(private val articles: List<Article>) :
         val titleView: TextView = view.findViewById(R.id.item_title)
         val userName: TextView = view.findViewById(R.id.user_name)
         val timeAgo: TextView = view.findViewById(R.id.time_ago)
+        val commentsButton: Button = view.findViewById(R.id.comments_button)
     }
 
     override fun onCreateViewHolder(
@@ -42,6 +44,12 @@ class ArticleAdapter(private val articles: List<Article>) :
 
         holder.itemView.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
+            holder.itemView.context.startActivity(intent)
+        }
+
+        holder.commentsButton.setOnClickListener {
+            val commentsURL = "https://news.ycombinator.com/item?id=${item.id}"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(commentsURL))
             holder.itemView.context.startActivity(intent)
         }
     }
