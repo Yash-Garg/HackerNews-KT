@@ -1,7 +1,14 @@
 # HackerNews-KT
 
-Basic Newbie App made while learning Kotlin & Stuff (Android)
+Basic Newbie HackerNews App made while learning Kotlin & Stuff
+
+## Libraries Used
+
+- Retrofit
+- Moshi
+- LiveData
+- ViewModel
 
 ## Screenshot
 
-![screenshot](./images/screenshot.png)
+<img width="35%" src="./images/screenshot.png" />
