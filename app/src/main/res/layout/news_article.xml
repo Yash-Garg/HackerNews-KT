@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="15dp"
-        android:paddingVertical="10dp">
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/item_title"
@@ -34,9 +34,11 @@
 
         <Button
             android:id="@+id/comments_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:drawableEnd="@drawable/ic_clip"
             android:text="@string/comments_text" />
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
