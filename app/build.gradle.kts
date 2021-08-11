@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.ncorti.ktfmt.gradle") version "0.6.0"
 }
 
 android {
@@ -54,6 +55,9 @@ dependencies {
     // Retrofit with Moshi
     implementation("com.squareup.moshi:moshi-kotlin:${Dependencies.moshi_version}")
     implementation("com.squareup.retrofit2:converter-moshi:${Dependencies.retrofit_version}")
+
+    // Pagination
+    implementation("androidx.paging:paging-runtime:${Dependencies.paging_version}")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Dependencies.lifecycle_version}")

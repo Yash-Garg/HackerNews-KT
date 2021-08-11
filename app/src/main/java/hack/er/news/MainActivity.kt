@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.getArticles()
 
         viewModel.apiResponse.observe(this) { response ->
-            if (response?.isSuccessful == true) {
+            if (response != null && response.isNotEmpty()) {
                 loadingIndicator.visibility = View.GONE
                 recyclerView.visibility = View.VISIBLE
-                recyclerView.adapter = response.body()?.let { ArticleAdapter(it) }
+                recyclerView.adapter = ArticleAdapter(response)
             } else {
                 loadingIndicator.visibility = View.GONE
                 errorView.visibility = View.VISIBLE

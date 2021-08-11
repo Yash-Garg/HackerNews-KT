@@ -6,10 +6,9 @@ import androidx.lifecycle.viewModelScope
 import hack.er.news.models.Article
 import hack.er.news.repository.Repository
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
-    val apiResponse: MutableLiveData<Response<List<Article>>?> = MutableLiveData()
+    val apiResponse: MutableLiveData<List<Article>?> = MutableLiveData()
 
     fun getArticles() {
         viewModelScope.launch {
