@@ -14,8 +14,9 @@ import hack.er.news.R
 import hack.er.news.model.Article
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class ArticleAdapter :
+class ArticleAdapter @Inject constructor() :
     PagingDataAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleComparator) {
 
     class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view) {

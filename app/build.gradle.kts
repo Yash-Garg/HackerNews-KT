@@ -67,3 +67,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Dependencies.lifecycle_version}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Dependencies.lifecycle_version}")
 }
+
+kapt {
+    correctErrorTypes = true
+}

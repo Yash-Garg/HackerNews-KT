@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = binding.recyclerView
 
         articleAdapter = ArticleAdapter()
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         lifecycleScope.launch {
             try {
