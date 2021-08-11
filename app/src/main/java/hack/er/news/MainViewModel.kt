@@ -1,23 +1,24 @@
 package hack.er.news
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import hack.er.news.api.HNService
 import hack.er.news.models.Article
-import hack.er.news.repository.Repository
-import kotlinx.coroutines.launch
+import hack.er.news.repository.HackerNewsPagingSource
+import kotlinx.coroutines.flow.Flow
 
-class MainViewModel(private val repository: Repository) : ViewModel() {
-    val apiResponse: MutableLiveData<List<Article>?> = MutableLiveData()
-
-    fun getArticles() {
-        viewModelScope.launch {
-            try {
-                val response = repository.getArticles()
-                apiResponse.value = response
-            } catch (e: Exception) {
-                apiResponse.value = null
-            }
-        }
+class MainViewModel(private val service: HNService) : ViewModel() {
+    fun getArticles(): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { HackerNewsPagingSource(service) }
+        ).flow.cachedIn(viewModelScope)
     }
 }
