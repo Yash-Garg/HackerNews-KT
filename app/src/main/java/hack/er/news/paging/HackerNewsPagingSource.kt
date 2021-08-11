@@ -1,9 +1,9 @@
-package hack.er.news.repository
+package hack.er.news.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import hack.er.news.api.HNService
-import hack.er.news.models.Article
+import hack.er.news.model.Article
 
 class HackerNewsPagingSource(
     private val service: HNService

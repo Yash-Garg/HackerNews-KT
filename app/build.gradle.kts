@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -57,6 +58,10 @@ dependencies {
 
     // Pagination
     implementation("androidx.paging:paging-runtime:${Dependencies.paging_version}")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:${Dependencies.hilt_version}")
+    kapt("com.google.dagger:hilt-compiler:${Dependencies.hilt_version}")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Dependencies.lifecycle_version}")

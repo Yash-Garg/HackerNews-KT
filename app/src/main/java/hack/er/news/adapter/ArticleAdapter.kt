@@ -11,7 +11,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import hack.er.news.R
-import hack.er.news.models.Article
+import hack.er.news.model.Article
 import java.text.SimpleDateFormat
 import java.util.*
 

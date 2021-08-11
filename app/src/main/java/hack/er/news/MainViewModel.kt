@@ -6,12 +6,15 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import dagger.hilt.android.lifecycle.HiltViewModel
 import hack.er.news.api.HNService
-import hack.er.news.models.Article
-import hack.er.news.repository.HackerNewsPagingSource
+import hack.er.news.model.Article
+import hack.er.news.paging.HackerNewsPagingSource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class MainViewModel(private val service: HNService) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val service: HNService) : ViewModel() {
     fun getArticles(): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(
