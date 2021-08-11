@@ -10,23 +10,23 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private val mainViewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
+    private lateinit var viewModel: MainViewModel
     private lateinit var articleAdapter: ArticleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
+
+
         setContentView(binding.root)
 
-        fetchArticles()
-    }
+        articleAdapter = ArticleAdapter()
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        binding.recyclerView.adapter = articleAdapter
 
-    private fun fetchArticles() {
         lifecycleScope.launch {
-            mainViewModel.getArticles().collectLatest { pagingData ->
+            viewModel.getArticles().collectLatest { pagingData ->
                 articleAdapter.submitData(pagingData)
             }
         }

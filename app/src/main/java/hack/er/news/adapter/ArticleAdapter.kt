@@ -15,9 +15,8 @@ import hack.er.news.models.Article
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticleAdapter(
-    diffCallback: DiffUtil.ItemCallback<Article>
-) : PagingDataAdapter<Article, ArticleAdapter.ArticleViewHolder>(diffCallback) {
+class ArticleAdapter :
+    PagingDataAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleComparator) {
 
     class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleView: TextView = view.findViewById(R.id.item_title)
