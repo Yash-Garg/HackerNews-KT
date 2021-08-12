@@ -1,9 +1,11 @@
 package hack.er.news.model
 
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
+@Keep
 data class Article(
     val id: Long,
     val title: String,
