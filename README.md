@@ -4,9 +4,11 @@ Basic Newbie HackerNews App made while learning Kotlin & Stuff
 
 ## Libraries Used
 
-- Retrofit
-- Moshi
+- Hilt
 - LiveData
+- Moshi
+- Paging
+- Retrofit
 - ViewModel
 
 ## Screenshot
