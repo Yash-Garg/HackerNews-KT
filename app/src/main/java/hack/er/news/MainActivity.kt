@@ -27,8 +27,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val recyclerView = binding.recyclerView
-        val loadingIndicator = binding.loadingIndicator
+        val shimmerLoading = binding.shimmerLayout
         val errorView = binding.errorView.root
+
+        /** Start shimmer loading animation **/
+        shimmerLoading.startLayoutAnimation()
 
         lifecycleScope.launch {
             mainViewModel.getArticles().collectLatest { pagingData ->
@@ -42,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         to [submitData] launch scope **/
         lifecycleScope.launch {
             articleAdapter.loadStateFlow.collectLatest { loadStates ->
-                loadingIndicator.isVisible = loadStates.refresh is LoadState.Loading
+                shimmerLoading.isVisible = loadStates.refresh is LoadState.Loading
                 errorView.isVisible = loadStates.refresh is LoadState.Error
                 recyclerView.isVisible = loadStates.refresh is LoadState.NotLoading
             }
