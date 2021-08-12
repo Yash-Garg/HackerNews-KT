@@ -12,4 +12,7 @@ object Dependencies {
     const val hilt_version = "2.38.1"
     const val activity_version = "1.3.1"
     const val lottie_version = "4.0.0"
+    const val gradle_version = "7.1.0-alpha07"
+    const val reflect_version = "0.12.0"
+    const val legacy_version = "1.0.0"
 }
