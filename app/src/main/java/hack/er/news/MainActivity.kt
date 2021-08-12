@@ -29,6 +29,12 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = binding.recyclerView
         val shimmerLoading = binding.shimmerLayout
         val errorView = binding.errorView.root
+        val swipeRefreshLayout = binding.swipeLayout
+
+        swipeRefreshLayout.setOnRefreshListener {
+            articleAdapter.refresh()
+            swipeRefreshLayout.isRefreshing = false
+        }
 
         /** Start shimmer loading animation **/
         shimmerLoading.startLayoutAnimation()
