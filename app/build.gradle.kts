@@ -64,6 +64,9 @@ dependencies {
     implementation("com.google.dagger:hilt-android:${Dependencies.hilt_version}")
     kapt("com.google.dagger:hilt-compiler:${Dependencies.hilt_version}")
 
+    // Lottie
+    implementation("com.airbnb.android:lottie:${Dependencies.lottie_version}")
+
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Dependencies.lifecycle_version}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Dependencies.lifecycle_version}")
