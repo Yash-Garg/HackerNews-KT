@@ -8,4 +8,7 @@ object Dependencies {
     const val retrofit_version = "2.9.0"
     const val lifecycle_version = "2.3.1"
     const val moshi_version = "1.12.0"
+    const val paging_version = "3.0.1"
+    const val hilt_version = "2.38.1"
+    const val activity_version = "1.3.1"
 }

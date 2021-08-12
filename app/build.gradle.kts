@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -44,6 +45,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Dependencies.kotlin_version}")
     implementation("androidx.core:core-ktx:${Dependencies.core_ktx_version}")
     implementation("androidx.appcompat:appcompat:${Dependencies.appcompat_version}")
+    implementation("androidx.activity:activity-ktx:${Dependencies.activity_version}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("dev.zacsweers.moshix:moshi-metadata-reflect:0.12.0")
 
@@ -55,11 +57,18 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:${Dependencies.moshi_version}")
     implementation("com.squareup.retrofit2:converter-moshi:${Dependencies.retrofit_version}")
 
+    // Pagination
+    implementation("androidx.paging:paging-runtime:${Dependencies.paging_version}")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:${Dependencies.hilt_version}")
+    kapt("com.google.dagger:hilt-compiler:${Dependencies.hilt_version}")
+
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Dependencies.lifecycle_version}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Dependencies.lifecycle_version}")
+}
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+kapt {
+    correctErrorTypes = true
 }

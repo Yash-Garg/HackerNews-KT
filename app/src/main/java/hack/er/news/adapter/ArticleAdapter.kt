@@ -7,14 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import hack.er.news.R
-import hack.er.news.models.Article
+import hack.er.news.model.Article
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class ArticleAdapter(private val articles: List<Article>) :
-    RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
+class ArticleAdapter @Inject constructor() :
+    PagingDataAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleComparator) {
 
     class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleView: TextView = view.findViewById(R.id.item_title)
@@ -33,26 +36,36 @@ class ArticleAdapter(private val articles: List<Article>) :
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        val item = articles[position]
-        holder.titleView.text = item.title
-        holder.userName.text = item.user ?: "Unknown"
+        getItem(position)?.let { article ->
+            holder.titleView.text = article.title
+            holder.userName.text = article.user ?: "Unknown"
 
-        ("Posted on " + SimpleDateFormat(
-            "dd MMMM yyyy - hh:mm a",
-            Locale.ENGLISH
-        ).format(item.time * 1000L)).also { holder.timeAgo.text = it }
+            ("Posted on " + SimpleDateFormat(
+                "dd MMMM yyyy - hh:mm a",
+                Locale.ENGLISH
+            ).format(article.time * 1000L)).also { holder.timeAgo.text = it }
 
-        holder.itemView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
-            holder.itemView.context.startActivity(intent)
-        }
+            holder.itemView.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+                holder.itemView.context.startActivity(intent)
+            }
 
-        holder.commentsButton.setOnClickListener {
-            val commentsURL = "https://news.ycombinator.com/item?id=${item.id}"
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(commentsURL))
-            holder.itemView.context.startActivity(intent)
+            holder.commentsButton.setOnClickListener {
+                val commentsURL = "https://news.ycombinator.com/item?id=${article.id}"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(commentsURL))
+                holder.itemView.context.startActivity(intent)
+            }
         }
     }
 
-    override fun getItemCount(): Int = articles.size
+    object ArticleComparator : DiffUtil.ItemCallback<Article>() {
+        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+            // Id is unique.
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+            return oldItem == newItem
+        }
+    }
 }
