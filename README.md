@@ -12,9 +12,13 @@ Basic Newbie HackerNews App made while learning Kotlin & Stuff
 - Retrofit
 - ViewModel
 
-## Screenshot
+## Screenshots
 
-<img width="35%" src="./images/screenshot.png" />
+<p align="center">
+  <img width="32%" src="./images/screen-1.png">
+  <img width="32%" src="./images/screen-2.png">
+  <img width="32%" src="./images/screen-3.png">
+</p>
 
 ## Credits
 
