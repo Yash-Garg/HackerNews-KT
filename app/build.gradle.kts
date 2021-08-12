@@ -45,6 +45,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Dependencies.kotlin_version}")
     implementation("androidx.core:core-ktx:${Dependencies.core_ktx_version}")
     implementation("androidx.appcompat:appcompat:${Dependencies.appcompat_version}")
+    implementation("androidx.activity:activity-ktx:${Dependencies.activity_version}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("dev.zacsweers.moshix:moshi-metadata-reflect:0.12.0")
 

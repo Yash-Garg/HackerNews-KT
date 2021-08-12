@@ -9,8 +9,11 @@ class HackerNewsPagingSource(
     private val service: HNService
 ) : PagingSource<Int, Article>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Article>): Int {
-        return state.pages.size + 1
+    override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
@@ -21,7 +24,7 @@ class HackerNewsPagingSource(
             LoadResult.Page(
                 data = articles,
                 prevKey = if (page == 1) null else page - 1,
-                nextKey = page
+                nextKey = if (articles.isNotEmpty()) page + 1 else null
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

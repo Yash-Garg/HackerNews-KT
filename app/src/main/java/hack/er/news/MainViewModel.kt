@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(private val service: HNService) : ViewMo
     fun getArticles(): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 20,
+                pageSize = 30,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { HackerNewsPagingSource(service) }
