@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -18,18 +20,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     lint {
         abortOnError = true
         checkReleaseBuilds = false
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-            setProguardFiles(listOf("proguard-android-optimize.txt", "proguard-rules.pro"))
-        }
     }
 
     compileOptions {
@@ -44,10 +40,32 @@ android {
     buildFeatures {
         viewBinding = true
     }
-}
 
-kapt {
-    correctErrorTypes = true
+    kapt {
+        correctErrorTypes = true
+    }
+
+    val keystoreConfigFile = rootProject.layout.projectDirectory.file("key.properties")
+    if (keystoreConfigFile.asFile.exists()) {
+        val contents = providers.fileContents(keystoreConfigFile).asText.forUseAtConfigurationTime()
+        val keystoreProperties = Properties()
+        keystoreProperties.load(contents.get().byteInputStream())
+        signingConfigs {
+            register("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = rootProject.file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
+        }
+        buildTypes.all { signingConfig = signingConfigs.getByName("release") }
+    }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = true
+            proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
+        }
+    }
 }
 
 dependencies {
@@ -64,6 +82,7 @@ dependencies {
     // Retrofit with Moshi
     implementation("com.squareup.moshi:moshi-kotlin:${Dependencies.moshi_version}")
     implementation("com.squareup.retrofit2:converter-moshi:${Dependencies.retrofit_version}")
+    implementation("com.squareup.okhttp3:logging-interceptor:${Dependencies.logging_version}")
     implementation("dev.zacsweers.moshix:moshi-metadata-reflect:${Dependencies.reflect_version}")
 
     // Pagination
