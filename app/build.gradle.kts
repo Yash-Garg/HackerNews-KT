@@ -20,6 +20,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    lint {
+        abortOnError = true
+        checkReleaseBuilds = false
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -39,6 +44,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
@@ -73,8 +82,4 @@ dependencies {
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Dependencies.lifecycle_version}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Dependencies.lifecycle_version}")
-}
-
-kapt {
-    correctErrorTypes = true
 }
