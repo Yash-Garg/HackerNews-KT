@@ -60,6 +60,9 @@ dependencies {
     // Pagination
     implementation("androidx.paging:paging-runtime:${Dependencies.paging_version}")
 
+    // Shimmer
+    implementation("com.facebook.shimmer:shimmer:${Dependencies.shimmer_version}")
+
     // Hilt
     implementation("com.google.dagger:hilt-android:${Dependencies.hilt_version}")
     kapt("com.google.dagger:hilt-compiler:${Dependencies.hilt_version}")

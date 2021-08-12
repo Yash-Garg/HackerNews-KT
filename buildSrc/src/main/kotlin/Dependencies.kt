@@ -15,4 +15,5 @@ object Dependencies {
     const val gradle_version = "7.1.0-alpha07"
     const val reflect_version = "0.12.0"
     const val legacy_version = "1.0.0"
+    const val shimmer_version = "0.5.0"
 }
