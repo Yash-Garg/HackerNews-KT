@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">HackerNews</string>
     <string name="error_message">Failed to fetch data.</string>
-    <string name="comments_text">Comments</string>
 </resources>

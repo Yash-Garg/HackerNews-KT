@@ -38,12 +38,16 @@ class ArticleAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         getItem(position)?.let { article ->
             holder.titleView.text = article.title
-            holder.userName.text = article.user ?: "Unknown"
 
-            ("Posted on " + SimpleDateFormat(
-                "dd MMMM yyyy - hh:mm a",
-                Locale.ENGLISH
-            ).format(article.time * 1000L)).also { holder.timeAgo.text = it }
+            "${article.commentsCount} COMMENTS".also { holder.commentsButton.text = it }
+
+            "by ${article.user}".also { holder.userName.text = it }
+
+            "Posted ${article.timeAgo} (${
+                SimpleDateFormat(
+                    "hh:mm a", Locale.ENGLISH
+                ).format(article.time * 1000L)
+            })".also { holder.timeAgo.text = it }
 
             holder.itemView.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
@@ -60,7 +64,6 @@ class ArticleAdapter @Inject constructor() :
 
     object ArticleComparator : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-            // Id is unique.
             return oldItem.id == newItem.id
         }
 

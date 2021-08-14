@@ -7,8 +7,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.zacsweers.moshix.reflect.MetadataKotlinJsonAdapterFactory
 import hack.er.news.api.HNService
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -18,20 +16,10 @@ import javax.inject.Singleton
 object ApiModule {
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
-        return OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideRetrofit(client: OkHttpClient, moshi: Moshi): Retrofit =
+    fun provideRetrofit(moshi: Moshi): Retrofit =
         Retrofit.Builder().baseUrl(HNService.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(client).build()
+            .build()
 
     @Singleton
     @Provides

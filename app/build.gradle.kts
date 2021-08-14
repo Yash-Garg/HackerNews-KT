@@ -82,7 +82,6 @@ dependencies {
     // Retrofit with Moshi
     implementation("com.squareup.moshi:moshi-kotlin:${Dependencies.moshi_version}")
     implementation("com.squareup.retrofit2:converter-moshi:${Dependencies.retrofit_version}")
-    implementation("com.squareup.okhttp3:logging-interceptor:${Dependencies.logging_version}")
     implementation("dev.zacsweers.moshix:moshi-metadata-reflect:${Dependencies.reflect_version}")
 
     // Pagination
