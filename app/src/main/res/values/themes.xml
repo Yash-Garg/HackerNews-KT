@@ -1,11 +1,8 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.HackerNews" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Primary brand color. -->
+<resources>
+
+    <style name="Theme.HackerNews" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/purple</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
-        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
